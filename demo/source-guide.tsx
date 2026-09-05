@@ -56,8 +56,8 @@ scripts/copy.mjs           copies source, never overwrites`} />
         </section>
         <section>
           <h2>Use it in another project</h2>
-          <p>Give this command to your coding agent in your app’s project. It loads instructions to inspect your app, copy the source, wire the modules, and verify the result. GitHub CLI must have access to the private repository.</p>
-          <CodeBlock language="bash" text={installCommand("example")} />
+          <p>Clone the repository. The install/ folder contains agent setup guides for each module and the combined example. GitHub access to the private repository is required.</p>
+          <CodeBlock language="bash" text={installCommand()} />
           <p>
             The guide directs your agent to add <code>src/chat-step</code>, <code>src/codex-connection</code>,
             the integration recipe, and the example feature folders. It refuses existing destinations and does not change your

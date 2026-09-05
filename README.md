@@ -82,19 +82,19 @@ tests/                           infrastructure checks
 
 ## Add with your coding agent
 
-Give one of these commands to your coding agent inside the target app's project. It prints a module-specific guide telling the agent how to inspect the host, acquire the source, install dependencies, wire the module, and verify it. The command itself only reads instructions; your agent performs the integration. GitHub CLI must already have access to this private repository (`gh auth login` if needed).
-
-**Standalone Codex connection**
+Clone the repository (private GitHub access required):
 
 ```sh
-gh api repos/Ansonhkg/agent-templates/contents/install/codex-connection.md -H 'Accept: application/vnd.github.raw+json'
+git clone https://github.com/Ansonhkg/agent-templates.git
 ```
 
-**Chat + result**
+Then point your agent to the appropriate setup guide:
 
-```sh
-gh api repos/Ansonhkg/agent-templates/contents/install/chat-step.md -H 'Accept: application/vnd.github.raw+json'
-```
+- [Codex connection](install/codex-connection.md): standalone sign-in and inference.
+- [Chat + result](install/chat-step.md): a focused conversation beside a live result.
+- [Combined example](install/example.md): character and style examples.
+
+The guides cover inspecting your app, copying source, installing dependencies, integration, and verification.
 
 ## Copy into an existing app
 
