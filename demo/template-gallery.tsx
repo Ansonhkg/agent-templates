@@ -37,6 +37,6 @@ export function TemplateGallery() {
         </div>
       </article>
     </div>
-    <section className="gallery-reuse"><h2>Separate pieces. One working example.</h2><p>Clone with GitHub CLI, then copy the module you need. Private access requires gh auth login. The connection demo works independently; the chat demo shows their integration. Character and style are two configurations of the chat template.</p><a className="gallery-link" href="#source">See how to copy and connect them →</a></section>
+    <section className="gallery-reuse"><h2>Separate pieces. One working example.</h2><p>Copy a command and give it to your coding agent in your app’s project. The command loads integration instructions; your agent installs, wires, and tests the module. Private access requires GitHub CLI sign-in. The connection demo works independently; the chat demo shows their integration. Character and style are two configurations of the chat template.</p><a className="gallery-link" href="#source">See how to copy and connect them →</a></section>
   </main>;
 }

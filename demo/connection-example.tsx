@@ -45,8 +45,8 @@ export function ConnectionExample({ transport, token }: { transport: ConnectionT
         <div className="connection-test-result" role="status" aria-label="Connection test result">{testing ? "Waiting for Codex…" : reply}</div>
         {testError && <p role="alert">{testError} You can retry the test.</p>}
       </section>
-      <section><h2>Copy it on its own</h2>
-        <p>Requires Node.js and GitHub CLI. This repository is private; sign in with <code>gh auth login</code> if needed. Replace the destination with your app folder.</p>
+      <section><h2>Add it with your agent</h2>
+        <p>Give this command to your coding agent in your app’s project. It loads the setup instructions so the agent can install, connect, and test this module. Private access requires GitHub CLI sign-in.</p>
         <CodeBlock language="bash" text={installCommand("codex-connection")} />
         <p>Use the account component, build your own UI with its hook, or call the server connection directly.</p>
         <CodeBlock language="typescript" text={`const connection = new CodexConnection({ workspace });

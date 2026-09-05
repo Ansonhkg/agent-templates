@@ -80,6 +80,22 @@ scripts/copy.mjs                  copy source into a host app
 tests/                           infrastructure checks
 ```
 
+## Add with your coding agent
+
+Give one of these commands to your coding agent inside the target app's project. It prints a module-specific guide telling the agent how to inspect the host, acquire the source, install dependencies, wire the module, and verify it. The command itself only reads instructions; your agent performs the integration. GitHub CLI must already have access to this private repository (`gh auth login` if needed).
+
+**Standalone Codex connection**
+
+```sh
+gh api repos/Ansonhkg/agent-templates/contents/install/codex-connection.md -H 'Accept: application/vnd.github.raw+json'
+```
+
+**Chat + result**
+
+```sh
+gh api repos/Ansonhkg/agent-templates/contents/install/chat-step.md -H 'Accept: application/vnd.github.raw+json'
+```
+
 ## Copy into an existing app
 
 Requires Node.js and GitHub CLI. For this private repository, authenticate with `gh auth login` first. Replace `/path/to/my-app` with your app folder.

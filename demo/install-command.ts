@@ -1,5 +1,5 @@
-// Run from any directory; GitHub CLI uses your existing private-repository access.
+// One command prints the selected integration guide for the user's coding agent.
+// GitHub CLI uses its existing authentication; no token appears in the command.
 export function installCommand(module: "codex-connection" | "chat-step" | "example") {
-  const option = module === "example" ? "--example" : `--module ${module}`;
-  return `gh repo clone Ansonhkg/agent-templates\nnode agent-templates/scripts/copy.mjs /path/to/my-app ${option}`;
+  return `gh api repos/Ansonhkg/agent-templates/contents/install/${module}.md -H 'Accept: application/vnd.github.raw+json'`;
 }
