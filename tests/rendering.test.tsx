@@ -7,7 +7,7 @@ import { Conversation } from "../src/chat-step/ui/Conversation";
 test("Markdown formats text, tables and code; plain user content remains literal", () => {
   const rendered = renderToStaticMarkup(<MessageContent text={'**Bold**\n\n- First\n\n| A | B |\n| - | - |\n| 1 | 2 |\n\n```json\n{"a":1}\n```'} />);
   assert.match(rendered, /<strong>Bold<\/strong>/); assert.match(rendered, /<li>First<\/li>/); assert.match(rendered, /<table>/);
-  assert.match(rendered, /Copy json/); assert.match(rendered, /\n  &quot;a&quot;: 1/);
+  assert.match(rendered, /Copy json/); assert.match(rendered, /hljs-attr/);
   assert.match(renderToStaticMarkup(<MessageContent plain text="**literal**" />), /\*\*literal\*\*/);
 });
 test("Markdown does not execute HTML, load remote images, or enable script links", () => {
@@ -22,4 +22,14 @@ test("raw JSON is formatted, incomplete JSON stays readable, custom renderers ma
   const rendered = renderToStaticMarkup(<ToolCallCard activity={activity} />);
   assert.match(rendered, /<details/); assert.match(rendered, /Tool input/); assert.match(rendered, /Tool output/);
   assert.doesNotMatch(renderToStaticMarkup(<Conversation busy={false} empty={null} messages={[{ id: "a", role: "assistant", text: "", activity }]} renderActivity={() => null} />), /Save/);
+});
+
+test("code highlighting escapes markup and tolerates unsupported languages", () => {
+  const highlighted = renderToStaticMarkup(<MessageContent text={'```typescript\nconst label = "<img src=x onerror=alert(1)>";\n```'} />);
+  assert.match(highlighted, /hljs-keyword/);
+  assert.match(highlighted, /hljs-string/);
+  assert.doesNotMatch(highlighted, /<img/);
+  const unknown = renderToStaticMarkup(<MessageContent text={'```unknown-language\n<widget>literal</widget>\n```'} />);
+  assert.match(unknown, /&lt;widget&gt;/);
+  assert.match(unknown, /Copy unknown-language/);
 });

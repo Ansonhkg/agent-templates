@@ -268,3 +268,16 @@
 .cs-tool-details { padding: 0 14px 12px; }
 .cs-tool-details h3 { margin: 12px 0 4px; font-size: 11px; color: #646a5f; }
 .cs-step summary:focus-visible, .cs-step pre:focus-visible, .cs-step a:focus-visible, .cs-table-scroll:focus-visible { background: #e2e6d9; }
+.cs-copy-control { display: flex; align-items: center; gap: 8px; }
+.cs-copy-feedback { font-size: 11px; }
+.cs-code-heading .cs-copy-button { display: inline-flex; align-items: center; justify-content: center; padding: 8px; width: 32px; height: 32px; color: #485040; background: transparent; }
+.cs-code-heading .cs-copy-button:hover { background: #e1e5da; }
+.cs-code-heading .cs-copy-button[data-state=copied] { color: #256038; background: #dfebdf; }
+.cs-code-heading .cs-copy-button[data-state=error] { color: #a12c25; }
+.cs-code-block .hljs-keyword, .cs-code-block .hljs-selector-tag, .cs-code-block .hljs-literal { color: #8b285f; }
+.cs-code-block .hljs-string, .cs-code-block .hljs-regexp, .cs-code-block .hljs-addition { color: #25603a; }
+.cs-code-block .hljs-number, .cs-code-block .hljs-attr, .cs-code-block .hljs-attribute { color: #934114; }
+.cs-code-block .hljs-title, .cs-code-block .hljs-built_in, .cs-code-block .hljs-name, .cs-code-block .hljs-section { color: #2258a0; }
+.cs-code-block .hljs-comment, .cs-code-block .hljs-meta { color: #606b58; }
+.cs-code-block .hljs-variable, .cs-code-block .hljs-template-variable, .cs-code-block .hljs-type { color: #70439a; }
+.cs-code-block .hljs-deletion { color: #a12c25; }

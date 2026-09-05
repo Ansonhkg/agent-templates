@@ -1,3 +1,4 @@
+import { CodeBlock } from "../src/chat-step/ui/JsonView";
 export function TemplateGallery() {
   return <main className="template-gallery">
     <h1>A starting point for your next app.</h1>
@@ -17,7 +18,7 @@ export function TemplateGallery() {
           <h2>Sign in with Codex</h2>
           <p>Browser and device sign-in, account status, reconnect, and sign-out. Use it on its own or with the chat template.</p>
           <div className="gallery-actions"><a className="gallery-link" href="#connection">Open demo →</a><a href="#source">View source & copy</a></div>
-          <code>--module codex-connection</code>
+          <CodeBlock language="bash" text="node scripts/copy.mjs /path/to/my-app --module codex-connection" />
         </div>
       </article>
       <article>
@@ -31,7 +32,7 @@ export function TemplateGallery() {
           <h2>Chat + result</h2>
           <p>A focused conversation beside a live result. Discuss ideas, invoke tools, generate, revise, and accept your work.</p>
           <div className="gallery-actions"><a className="gallery-link" href="#character">Open demo →</a><a href="#source">View source & copy</a></div>
-          <code>--module chat-step</code>
+          <CodeBlock language="bash" text="node scripts/copy.mjs /path/to/my-app --module chat-step" />
         </div>
       </article>
     </div>

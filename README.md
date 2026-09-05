@@ -94,7 +94,7 @@ node scripts/copy.mjs /path/to/my-app --module codex-connection
 node scripts/copy.mjs /path/to/my-app --module chat-step
 ```
 
-The script writes into the target's `src/`. It checks all destinations first and refuses to overwrite an existing folder, including a symlink. It does not edit `package.json`, install dependencies, register a route, or overwrite your theme. Dependencies are React/React DOM for the UI, react-markdown/remark-gfm for chat rendering, and Zod for server validation. The bundled server and Codex adapter require Node.js; they do not belong in the browser bundle.
+The script writes into the target's `src/`. It checks all destinations first and refuses to overwrite an existing folder, including a symlink. It does not edit `package.json`, install dependencies, register a route, or overwrite your theme. Dependencies are React/React DOM for the UI, react-markdown/remark-gfm/lowlight for chat rendering, and Zod for server validation. The bundled server and Codex adapter require Node.js; they do not belong in the browser bundle.
 
 To create a clean standalone checkout, use `node scripts/prepare-public.mjs /path/to/new-directory`. Its `package.json` is the private demo app manifest, not a library package. The export excludes local data, credentials, generated artwork, dependencies, and build output.
 

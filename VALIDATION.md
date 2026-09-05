@@ -80,3 +80,7 @@ Account transport recovery was additionally verified by shutting down and restar
 ## Template gallery and private repository
 
 The gallery now exposes separate Sign in with Codex and Chat + result demos, with character/style variants and a shared source guide. Browser checks passed for both preview links, sign-in-to-chat navigation, hash navigation, back/reload behavior, the account dialog, and 390px gallery layout. All five pages plus the dialog had zero automated accessibility-rule violations and no page errors. Build and all 17 tests passed after this change. Support is macOS only; the package platform field and CI runner reflect that scope. A clean standalone checkout passed npm installation, build, and tests; 67 staged source files had no privacy-scan findings. Local demo data and generated media are excluded.
+
+## Syntax highlighting and clipboard controls
+
+Code blocks in both demos, the source guide, gallery, Markdown replies, and tool JSON share one renderer. Build and 18 tests pass, including escaped highlighted markup and unknown-language fallbacks. `npm run test:code` checked all 11 demo blocks against the actual clipboard, success/reset/error/retry states, highlight tokens, and 390px overflow. Clipboard rejection was deliberately injected for the error check. All five page accessibility scans plus the account dialog still report zero violations. No inference changes or new image generation were needed for this rendering update.

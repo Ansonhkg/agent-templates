@@ -246,3 +246,5 @@ main {
   .template-gallery { padding-top: 32px; }
   .gallery-preview { padding: 20px; height: 260px; }
 }
+.source-guide .cs-code-block pre { margin: 0; padding: 10px 14px 14px; background: transparent; border-radius: 0; }
+.gallery-copy .cs-code-block code { color: inherit; }

@@ -1,7 +1,8 @@
+import { CodeBlock } from "../src/chat-step/ui/JsonView";
 import { CodexAccount } from "../src/codex-connection/ui/CodexAccount";
 import type { ConnectionTransport } from "../src/codex-connection/types";
 import { useCodexConnection } from "../src/codex-connection/client/use-codex-connection";
-// This page deliberately uses only the connection module, with no chat imports.
+// Account behavior uses only the connection module; CodeBlock is shared presentation.
 export function ConnectionExample({ transport }: { transport: ConnectionTransport }) {
   const { state, error } = useCodexConnection(transport);
   return <main className="source-guide">
@@ -17,13 +18,13 @@ export function ConnectionExample({ transport }: { transport: ConnectionTranspor
         <a className="gallery-link" href="#character">Continue to the chat demo →</a>
       </section>
       <section><h2>Copy it on its own</h2>
-        <pre>{`node scripts/copy.mjs /path/to/my-app --module codex-connection`}</pre>
+        <CodeBlock language="bash" text={`node scripts/copy.mjs /path/to/my-app --module codex-connection`} />
         <p>Use the account component, build your own UI with its hook, or call the server connection directly.</p>
-        <pre>{`const connection = new CodexConnection({ workspace });
+        <CodeBlock language="typescript" text={`const connection = new CodexConnection({ workspace });
 const state = await connection.refresh();
 
 // When adding a chat step:
-const provider = codexChatProvider(connection);`}</pre>
+const provider = codexChatProvider(connection);`} />
       </section>
     </div>
   </main>;

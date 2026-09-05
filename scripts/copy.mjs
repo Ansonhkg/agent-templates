@@ -26,4 +26,4 @@ for (const folder of folders) {
   await mkdir(dirname(path), { recursive: true });
   await cp(join(root, "src", folder), path, { recursive: true, errorOnExist: true, force: false });
 }
-console.log(`Copied ${folders.join(", ")} into ${target}/src. You own these files.\nUI dependencies: react, react-dom. Chat rendering: react-markdown, remark-gfm. Chat server validation: zod. Server adapters: Node.js.\nSee src/${selected === "both" ? "integrations" : selected}/README.md for setup and wiring. No existing files or package.json were changed.`);
+console.log(`Copied ${folders.join(", ")} into ${target}/src. You own these files.\nUI dependencies: react, react-dom. Chat rendering: react-markdown, remark-gfm, lowlight. Chat server validation: zod. Server adapters: Node.js.\nSee src/${selected === "both" ? "integrations" : selected}/README.md for setup and wiring. No existing files or package.json were changed.`);

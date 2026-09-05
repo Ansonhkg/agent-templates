@@ -1,3 +1,4 @@
+import { CodeBlock } from "../src/chat-step/ui/JsonView";
 export function SourceGuide() {
   return (
     <main className="source-guide">
@@ -9,7 +10,7 @@ export function SourceGuide() {
       <div className="source-columns">
         <section>
           <h2>What the repo looks like</h2>
-          <pre>{`src/
+          <CodeBlock language="text" text={`src/
   chat-step/                ← copy these building blocks
     types.ts                 messages, actions, results
     ui/
@@ -50,28 +51,28 @@ export function SourceGuide() {
       VisualResult.tsx      right-hand preview
 
 demo/                      runnable example + this guide
-scripts/copy.mjs           copies source, never overwrites`}</pre>
+scripts/copy.mjs           copies source, never overwrites`} />
         </section>
         <section>
           <h2>Use it in another project</h2>
           <p>Run this from the template directory:</p>
-          <pre>{`node scripts/copy.mjs /path/to/my-app --example`}</pre>
+          <CodeBlock language="bash" text={`node scripts/copy.mjs /path/to/my-app --example`} />
           <p>
             This adds <code>src/chat-step</code>, <code>src/codex-connection</code>,
             the integration recipe, and the example feature folders. It refuses existing destinations and does not change your
             package.json.
           </p>
           <h3>Connect once on the server</h3>
-          <pre>{`const connection = new CodexConnection({ workspace });
+          <CodeBlock language="typescript" text={`const connection = new CodexConnection({ workspace });
 const provider = codexChatProvider(connection);
 const task = new SessionRuntime(step, provider, store);
-await task.init(sessionId);`}</pre>
+await task.init(sessionId);`} />
           <p>Mount the account and task HTTP routes. Follow <code>src/integrations/README.md</code> for the complete host and client wiring.</p>
           <h3>Copy just one module</h3>
-          <pre>{`node scripts/copy.mjs /path/to/my-app --module codex-connection
-node scripts/copy.mjs /path/to/my-app --module chat-step`}</pre>
+          <CodeBlock language="bash" text={`node scripts/copy.mjs /path/to/my-app --module codex-connection
+node scripts/copy.mjs /path/to/my-app --module chat-step`} />
           <h3>Wire your page</h3>
-          <pre>{`<ChatStep
+          <CodeBlock language="tsx" text={`<ChatStep
   transport={myTransport}
   title="Create your character"
   resultTitle="Your character"
@@ -79,16 +80,16 @@ node scripts/copy.mjs /path/to/my-app --module chat-step`}</pre>
   result={props => <MyPreview {...props} />}
   canComplete={result => !!result.selectedId}
   onComplete={({ result }) => nextStep(result)}
-/>`}</pre>
+/>`} />
           <h3>Supply fresh feature context</h3>
-          <pre>{`getContext: ({ sessionId, result, signal }) => ({
+          <CodeBlock language="typescript" text={`getContext: ({ sessionId, result, signal }) => ({
   language: project.language,
   palette: project.palette,
   usage: project.usage,
-})`}</pre>
+})`} />
           <p>The server sends relevant JSON each turn. Service implementations and credentials stay on the server.</p>
           <h3>Register your actions</h3>
-          <pre>{`{
+          <CodeBlock language="typescript" text={`{
   name: "generate_character",
   description: "Draw only when requested",
   schema: z.object({ prompt: z.string() }),
@@ -96,7 +97,7 @@ node scripts/copy.mjs /path/to/my-app --module chat-step`}</pre>
     // Call your product service.
     // Update the result on the right.
   }
-}`}</pre>
+}`} />
         </section>
       </div>
       <section className="source-bottom">
