@@ -82,19 +82,17 @@ tests/                           infrastructure checks
 
 ## Add with your coding agent
 
-Clone the repository (private GitHub access required):
+Each gallery card offers a single `curl -fsSL` command for that template's instructions. The URL uses the page's own origin and configured Vite base path, so it works on localhost now and on the site's domain when hosted. Give that command to your coding agent in the target app's project. It prints a guide; it does not pipe code into a shell or perform installation by itself.
+
+Local example:
 
 ```sh
-git clone https://github.com/Ansonhkg/agent-templates.git
+curl -fsSL 'http://127.0.0.1:4328/install/codex-connection.md'
 ```
 
-Then point your agent to the appropriate setup guide:
+The instruction routes are `install/codex-connection.md`, `install/chat-step.md`, and `install/example.md`. `npm run dev` and `npm run build` generate these static files from the reviewed Markdown in `install/`. The production `dist/` includes them, so the eventual static host can serve them without a Codex backend or GitHub authentication. Acquiring the actual source still requires access to the private GitHub repository.
 
-- [Codex connection](install/codex-connection.md): standalone sign-in and inference.
-- [Chat + result](install/chat-step.md): a focused conversation beside a live result.
-- [Combined example](install/example.md): character and style examples.
-
-The guides cover inspecting your app, copying source, installing dependencies, integration, and verification.
+Edit the canonical guides in `install/`; regenerate with `node scripts/build-install-guides.mjs` during an already-running dev session. Do not place credentials in these publicly served documents.
 
 ## Copy into an existing app
 

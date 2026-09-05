@@ -12,7 +12,10 @@
     "test:e2e": "CHAT_STEP_LIVE=1 playwright test",
     "test:accessibility": "tsx tests/check-accessibility.ts",
     "test:code": "tsx tests/check-code-blocks.ts",
-    "test:demo:connection": "tsx tests/check-connection-demo.ts"
+    "test:demo:connection": "tsx tests/check-connection-demo.ts",
+    "predev": "node scripts/build-install-guides.mjs",
+    "prebuild": "node scripts/build-install-guides.mjs",
+    "test:install-guides": "tsx tests/check-install-guides.ts"
   },
   "dependencies": {
     "lowlight": "^3.3.0",

@@ -8,3 +8,6 @@ playwright-report/
 .env*
 !.env.example
 .DS_Store
+
+# Generated from reviewed install/*.md for static hosting.
+public/install/

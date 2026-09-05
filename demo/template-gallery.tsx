@@ -19,7 +19,7 @@ export function TemplateGallery() {
           <h2>Sign in with Codex</h2>
           <p>Browser and device sign-in, account status, reconnect, and sign-out. Test a real request without a chat interface.</p>
           <div className="gallery-actions"><a className="gallery-link" href="#connection">Open demo →</a><a href="#source">View source & copy</a></div>
-          <CodeBlock language="bash" text={installCommand()} />
+          <CodeBlock language="bash" text={installCommand("codex-connection")} />
         </div>
       </article>
       <article>
@@ -33,10 +33,10 @@ export function TemplateGallery() {
           <h2>Chat + result</h2>
           <p>A focused conversation beside a live result. Discuss ideas, invoke tools, generate, revise, and accept your work.</p>
           <div className="gallery-actions"><a className="gallery-link" href="#character">Open demo →</a><a href="#source">View source & copy</a></div>
-          <CodeBlock language="bash" text={installCommand()} />
+          <CodeBlock language="bash" text={installCommand("chat-step")} />
         </div>
       </article>
     </div>
-    <section className="gallery-reuse"><h2>Separate pieces. One working example.</h2><p>Clone once to get both templates. Your agent can follow the guides in install/ to integrate the module you choose. GitHub access to the private repository is required. The connection demo works independently; the chat demo shows their integration. Character and style are two configurations of the chat template.</p><a className="gallery-link" href="#source">See how to copy and connect them →</a></section>
+    <section className="gallery-reuse"><h2>Separate pieces. One working example.</h2><p>Give the template’s command to your coding agent. It reads setup instructions from this site, then the agent installs and integrates the module. The source repository is still private and requires GitHub access. The connection demo works independently; the chat demo shows their integration. Character and style are two configurations of the chat template.</p><a className="gallery-link" href="#source">See how to copy and connect them →</a></section>
   </main>;
 }

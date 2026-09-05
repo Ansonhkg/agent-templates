@@ -46,8 +46,8 @@ export function ConnectionExample({ transport, token }: { transport: ConnectionT
         {testError && <p role="alert">{testError} You can retry the test.</p>}
       </section>
       <section><h2>Add it with your agent</h2>
-        <p>Clone the repository, then have your agent follow install/codex-connection.md to integrate this module. GitHub access to the private repository is required.</p>
-        <CodeBlock language="bash" text={installCommand()} />
+        <p>Give this command to your coding agent. It reads this template’s setup instructions from this site; the agent then installs, connects, and tests the module. Source access still requires permission to the private GitHub repository.</p>
+        <CodeBlock language="bash" text={installCommand("codex-connection")} />
         <p>Use the account component, build your own UI with its hook, or call the server connection directly.</p>
         <CodeBlock language="typescript" text={`const connection = new CodexConnection({ workspace });
 const state = await connection.refresh();
