@@ -16,6 +16,8 @@ import { TemplateGallery } from "./template-gallery";
 import { SourceGuide } from "./source-guide";
 import "../src/chat-step/ui/chat-step.css";
 import "./demo.css";
+import { HostedPreview } from "./hosted-preview";
+const hosted = import.meta.env.MODE === "showcase";
 function Demo() {
   const [route, setRoute] = useState(location.hash);
   const kind = route.startsWith("#style") ? "style" : "character";
@@ -32,6 +34,7 @@ function Demo() {
   }, []);
   useEffect(() => setFinished(undefined), [kind]);
   useEffect(() => {
+    if (hosted) return;
     void fetch("/api/bootstrap")
       .then((r) => r.json())
       .then((data) => setToken(data.token))
@@ -54,7 +57,7 @@ function Demo() {
         source={guide}
         sourcePanel={connectionPage ? <ConnectionSource /> : <SourceGuide />}
       >
-        {error ? <p role="alert">{error}</p> : !token ? <p role="status">Loading demo…</p> : connectionPage ?
+        {hosted ? <HostedPreview connection={connectionPage} kind={kind} /> : error ? <p role="alert">{error}</p> : !token ? <p role="status">Loading demo…</p> : connectionPage ?
           <ConnectionExample transport={connectionTransport} token={token} /> : (
           <main>
             <div className="demo-variants" aria-label="Chat examples">

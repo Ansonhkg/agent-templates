@@ -11,3 +11,5 @@ playwright-report/
 
 # Generated from reviewed install/*.md for static hosting.
 public/install/
+
+dist-showcase/

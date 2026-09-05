@@ -213,3 +213,9 @@ These checks cover compilation, actual filesystem persistence, schema/allowlist 
 ## Public source release
 
 See [RELEASE.md](RELEASE.md) for the clean export command and remaining release gates. Run `npm run test:e2e` for the real Codex/browser journey; it uses inference and generates images. [SECURITY.md](SECURITY.md) explains local-host and rendering boundaries.
+
+## Hosted showcase
+
+The gallery is hosted at https://anson.sh/templates/. Build it with `npm run build:showcase`; serve `dist-showcase/` at `/templates/`. The hosted Demo tabs are explicitly labeled interface previews and never request a local Codex backend. Live authentication and generation remain in the local demo. The Source tabs and public instruction URLs work on either host.
+
+Run `npx tsx tests/check-showcase.ts <showcase-url>` to check the deployed gallery, previews, Demo/Source navigation, instruction routes, and mobile layout.

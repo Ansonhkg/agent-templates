@@ -259,3 +259,8 @@ main {
 .connection-demo-content { max-width: 680px; margin: 30px 0; padding: 28px; background: white; border-radius: 14px; }
 .connection-demo-content h2 { margin-top: 0; }
 @media (max-width: 800px) { .template-toolbar { padding: 0 16px; gap: 16px; } }
+
+.hosted-notice { display:flex; align-items:center; justify-content:space-between; gap:16px; background:#eeeee7; border-radius:12px; padding:14px 20px; margin-bottom:24px; }
+.hosted-notice button { flex-shrink:0; background:#fff; }
+.hosted-setup { background:#fff; border-radius:12px; padding:20px; margin-bottom:24px; }
+@media(max-width:600px) { .hosted-notice { align-items:flex-start; flex-direction:column; } }

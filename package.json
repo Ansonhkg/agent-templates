@@ -15,7 +15,8 @@
     "test:demo:connection": "tsx tests/check-connection-demo.ts",
     "predev": "node scripts/build-install-guides.mjs",
     "prebuild": "node scripts/build-install-guides.mjs",
-    "test:install-guides": "tsx tests/check-install-guides.ts"
+    "test:install-guides": "tsx tests/check-install-guides.ts",
+    "build:showcase": "node scripts/build-install-guides.mjs && tsc --noEmit && vite build --mode showcase --base=/templates/ --outDir dist-showcase"
   },
   "dependencies": {
     "lowlight": "^3.3.0",
