@@ -11,7 +11,7 @@ try {
  await expect(page.getByRole('heading',{name:'A starting point for your next app.'})).toBeVisible();
  await expect(page.locator('code').first()).toContainText(new URL('install/codex-connection.md',base).href);
  await page.getByRole('link',{name:'Open demo →'}).first().click();
- await expect(page.getByText('Interface preview.',{exact:true})).toBeVisible();
+ await expect(page.getByText('Interactive mock demo.',{exact:true})).toBeVisible();
  await page.getByRole('tab',{name:'Source',exact:true}).click();
  await expect(page.getByRole('heading',{name:'Sign in with Codex — source'})).toBeVisible();
  await page.goto(base+'#character');

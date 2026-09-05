@@ -277,3 +277,36 @@ main {
 .snippet-choices button[aria-pressed=true] { background: #292b27; color: white; }
 .template-snippets .cs-code-block pre { max-height: 360px; overflow: auto; }
 @media(max-width:800px) { .template-visuals { grid-template-columns: 1fr; } }
+
+.mock-layout { display:grid; grid-template-columns:240px minmax(0,1fr); gap:28px; align-items:start; margin-top:24px; }
+.mock-flow { padding:20px; background:#eeeee7; border-radius:14px; }
+.mock-flow h2 { font-size:18px; margin:0 0 10px; }
+.mock-flow p { font-size:13px; color:#62695c; line-height:1.6; }
+.mock-actions { display:flex; flex-wrap:wrap; gap:8px; margin:12px 0; }
+.mock-actions button[aria-pressed=true] { background:#292b27; color:white; }
+.mock-dag { margin:24px 0; }
+.mock-dag button { position:relative; display:flex; align-items:center; gap:12px; width:100%; text-align:left; background:transparent; padding:10px 0; font-size:13px; }
+.mock-dag button:not(:first-child)::before { content:""; position:absolute; left:9px; top:-12px; width:2px; height:30px; background:#c6cbbf; }
+.mock-dag button.mock-branch { padding-left:25px; }
+.mock-dag button.mock-branch::before { left:9px; width:24px; height:33px; top:-12px; background:transparent; border-left:2px solid #c6cbbf; border-bottom:2px solid #c6cbbf; border-radius:0 0 0 16px; }
+.mock-dot { position:relative; z-index:1; display:grid; place-items:center; flex-shrink:0; width:20px; height:20px; border-radius:50%; background:#d6dbcf; font-size:12px; }
+.mock-dag [aria-current=step] { color:#99321f; font-weight:600; }
+.mock-dag [aria-current=step] .mock-dot { background:#99321f; color:white; }
+.mock-dag small { display:block; font-size:10px; font-weight:400; color:#62695c; margin-top:3px; }
+.mock-surface { padding:20px 0; min-width:0; }
+.mock-surface h1 { margin-top:0; }
+.mock-chat-step { min-width:0; margin:0; }
+.mock-chat-step .cs-workspace { min-height:580px; }
+.mock-chat-step .cs-chat, .mock-chat-step .cs-result { min-width:0; }
+.mock-chat-step .cs-conversation { min-height:180px; max-height:370px; }
+.mock-sample { width:100%; max-height:330px; }
+.mock-explanation { min-height:65px; }
+@media(max-width:1050px) { .mock-layout { grid-template-columns:200px minmax(0,1fr); gap:16px; } .mock-chat-step .cs-workspace { grid-template-columns:1fr; } }
+@media(max-width:700px) { .mock-layout { grid-template-columns:1fr; } .mock-flow { padding:16px; } .mock-dag { display:grid; grid-template-columns:1fr 1fr; gap:6px 12px; } .mock-dag button:not(:first-child)::before { display:none; } .mock-dag button.mock-branch { padding-left:0; } .mock-explanation { min-height:0; } }
+
+.mock-dag { position:relative; }
+.mock-dag button { height:62px; }
+.mock-dag button::before { display:none; }
+.mock-edges { position:absolute; top:0; left:0; pointer-events:none; overflow:visible; }
+.mock-edges path { stroke:#c6cbbf; stroke-width:2; fill:none; }
+@media(max-width:700px) { .mock-edges { display:none; } }
