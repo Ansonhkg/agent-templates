@@ -1,0 +1,39 @@
+{
+  "name": "chat-step-template",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "tsx demo/server.ts",
+    "build": "tsc --noEmit && vite build",
+    "test": "tsx --test tests/*.test.ts tests/*.test.tsx",
+    "copy": "node scripts/copy.mjs",
+    "test:live:connection": "tsx tests/live-connection.ts",
+    "test:live:features": "tsx tests/live-features.ts",
+    "test:e2e": "CHAT_STEP_LIVE=1 playwright test",
+    "test:accessibility": "tsx tests/check-accessibility.ts"
+  },
+  "dependencies": {
+    "react": "19.2.7",
+    "react-dom": "19.2.7",
+    "react-markdown": "^10.1.0",
+    "remark-gfm": "^4.0.1",
+    "zod": "4.4.3"
+  },
+  "devDependencies": {
+    "@axe-core/playwright": "^4.13.0",
+    "@playwright/test": "^1.63.0",
+    "@types/node": "^22.0.0",
+    "@types/react": "19.2.17",
+    "@types/react-dom": "19.2.3",
+    "@vitejs/plugin-react": "5.2.0",
+    "tsx": "^4.20.0",
+    "typescript": "5.9.3",
+    "vite": "7.3.6"
+  },
+  "engines": {
+    "node": ">=22"
+  },
+  "os": [
+    "darwin"
+  ]
+}

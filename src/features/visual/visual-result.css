@@ -1,0 +1,76 @@
+.visual-canvas {
+  background: #f7f7f2;
+  border-radius: 12px;
+  height: 330px;
+  position: relative;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+}
+.visual-canvas > img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+.visual-empty {
+  text-align: center;
+  color: #62695c;
+}
+.visual-empty > span {
+  font-size: 44px;
+  color: #b8bfaa;
+}
+.visual-empty h3 {
+  font-size: 22px;
+  font-weight: 500;
+  letter-spacing: -0.5px;
+  line-height: 1.4;
+  color: #62695c;
+  margin: 10px 0;
+}
+.visual-empty p {
+  font-size: 12px;
+}
+.visual-progress {
+  position: absolute;
+  bottom: 10px;
+  font-size: 11px;
+  background: #fff;
+  padding: 5px 12px;
+  border-radius: 20px;
+}
+.visual-versions {
+  display: flex;
+  gap: 10px;
+  overflow-x: auto;
+  margin-top: 12px;
+}
+.cs-step .visual-versions button {
+  background: #f7f7f1;
+  flex-shrink: 0;
+  padding: 5px;
+  width: 90px;
+}
+.cs-step .visual-versions button[aria-pressed="true"] {
+  background: #fde9df;
+}
+.visual-versions img {
+  width: 80px;
+  height: 48px;
+  object-fit: contain;
+}
+.visual-versions span {
+  display: block;
+  font-size: 10px;
+}
+.visual-brief h3 {
+  font-size: 13px;
+  margin: 18px 0 5px;
+}
+.visual-brief p {
+  font-size: 12px;
+  color: #62695c;
+  margin: 0;
+}

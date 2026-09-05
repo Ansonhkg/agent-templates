@@ -1,0 +1,62 @@
+import { test, expect } from "@playwright/test";
+test("real chat rendering, tools, generation, revision, cancellation and persistence", async ({ page, context }, info) => {
+  test.skip(process.env.CHAT_STEP_LIVE !== "1", "Opt in: uses a signed-in Codex account and image allowance");
+  await context.grantPermissions(["clipboard-read", "clipboard-write"]);
+  const errors: string[] = []; page.on("pageerror", e => errors.push(e.message));
+  let shot = 0, kind = "character";
+  const capture = (name: string) => page.screenshot({ path: info.outputPath(`${String(++shot).padStart(2, "0")}-${name}.png`), fullPage: true });
+  const state = async () => (await page.request.get(`/api/steps/${kind}`)).json();
+  async function click(name: string) { await page.getByRole("button", { name, exact: true }).click(); await capture(name.replace(/[^a-z0-9]+/gi, "-")); }
+  async function send(text: string, generating = false) {
+    await page.getByRole("textbox", { name: "Message", exact: true }).fill(text); await capture("message-entered");
+    await click("Send message");
+    if (generating) { await expect(page.locator(".cs-tool-card.cs-running")).toBeVisible({ timeout: 60000 }); await capture("generation-running"); }
+    await expect.poll(async () => (await state()).status, { timeout: generating ? 360000 : 120000, intervals: [500, 1000] }).not.toBe("running");
+    const result = await state(); expect(result.status, result.error).toBe("idle"); await capture("reply-complete"); return result;
+  }
+  await page.goto("/#character"); await capture("fresh-demo");
+  await expect(page.getByRole("button", { name: "● Codex connected", exact: true })).toBeVisible();
+  await send("For a formatting demonstration, reply with two bullet points using bold labels, a two-column Markdown table, a fenced javascript block containing const ready = true;, and a link to https://example.com. Do not call tools or generate images.");
+  await expect(page.locator(".cs-markdown strong").first()).toBeVisible();
+  await expect(page.locator(".cs-markdown li").first()).toBeVisible();
+  await expect(page.locator(".cs-markdown table")).toBeVisible();
+  await expect(page.locator(".cs-code-block code").first()).toContainText("ready");
+  await page.getByRole("button", { name: "Copy javascript", exact: true }).click(); await capture("code-copied");
+  expect(await page.evaluate(() => navigator.clipboard.readText())).toContain("ready");
+  await send('Reply only with the JSON object {"purpose":"Illustration","language":"English"}, without commentary or tools.');
+  const json = page.locator(".cs-code-block").filter({ has: page.getByRole("button", { name: "Copy json", exact: true }) }).last();
+  await expect(json.locator("code")).toContainText('\n  "purpose"');
+  await send('Call update_brief with name "Momo" and brief "A small dusty-pink blob, dot eyes, straight mouth, simple black outline, white background." Do not generate yet.');
+  const brief = page.locator("details.cs-tool-card").filter({ hasText: "Update the brief" }).last();
+  await brief.locator("summary").click(); await capture("tool-expanded");
+  await expect(brief.getByRole("region", { name: "Tool input" })).toContainText("Momo");
+  await expect(brief.getByRole("region", { name: "Tool output" })).toContainText('"updated": true');
+  await send("Generate one image of Momo standing and waving, following the brief.", true);
+  expect((await state()).result.versions).toHaveLength(1);
+  await expect(page.getByRole("button", { name: "Select version 1", exact: true })).toBeVisible();
+  await send("Generate a revision of the selected image: keep Momo's identity and make both arms shorter.", true);
+  expect((await state()).result.versions).toHaveLength(2);
+  await click("Select version 1"); await expect.poll(async () => (await state()).status).toBe("idle");
+  await click("Use this character"); await expect(page.getByRole("heading", { name: "Your character is ready." })).toBeVisible();
+  await click("Keep refining"); await page.reload(); await capture("reload-retains-result");
+  await expect(page.getByRole("button", { name: "Select version 2", exact: true })).toBeVisible();
+  await page.getByRole("textbox", { name: "Message", exact: true }).fill("Discuss thirty character personalities at length. Do not generate."); await capture("cancel-message-entered");
+  await click("Send message"); await click("Stop");
+  await expect.poll(async () => (await state()).status).toBe("cancelled");
+  await send("Say Ready to continue. No tools.");
+  const { token } = await (await page.request.get("/api/bootstrap")).json();
+  await page.request.post("/api/steps/character/actions", { headers: { "X-Chat-Step-Token": token }, data: { name: "select_version", args: { id: "00000000-0000-4000-8000-000000000000" } } });
+  await expect.poll(async () => (await state()).status).toBe("error");
+  const failed = page.locator("details.cs-tool-card.cs-failed").last(); await failed.locator("summary").click(); await capture("tool-error");
+  await expect(failed).toContainText("does not belong");
+  await send("Say Recovered. No tools.");
+  await click("Style example"); kind = "style";
+  await send('Update the brief to name "Quiet ink" and brief "Fine ink lines, white paper, muted coral accent, ample white space." Do not generate yet.');
+  await send("Generate one style sample following the brief and the fixed scene from your instructions.", true);
+  expect((await state()).result.versions).toHaveLength(1);
+  await click("Use this style"); await expect(page.getByRole("heading", { name: "Your style is ready." })).toBeVisible();
+  await click("Keep refining");
+  await page.setViewportSize({ width: 390, height: 844 }); await capture("mobile");
+  expect(await page.evaluate(() => document.documentElement.scrollWidth > innerWidth)).toBe(false);
+  expect(errors).toEqual([]);
+});
