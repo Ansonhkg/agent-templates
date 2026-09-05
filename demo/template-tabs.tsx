@@ -17,7 +17,7 @@ export function TemplateTabs({ base, source, sourcePanel, children }: {
         <button id="source-tab" role="tab" aria-selected={source} aria-controls="source-panel" tabIndex={source ? 0 : -1} onClick={() => select(1)}>Source</button>
       </div>
     </div>
-    <div className="template-flip">
+    <div className="template-panels">
       <div id="demo-panel" role="tabpanel" aria-labelledby="demo-tab" className="template-panel" hidden={source}>{children}</div>
       <div id="source-panel" role="tabpanel" aria-labelledby="source-tab" className="template-panel" hidden={!source}>{sourcePanel}</div>
     </div>

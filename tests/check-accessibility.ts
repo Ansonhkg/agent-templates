@@ -45,7 +45,7 @@ try {
   expect(["transparent", "rgba(0, 0, 0, 0)", dimensions.color]).toContain(dimensions.field);
   await page.getByRole("tab", { name: "Source", exact: true }).click();
   await expect(page.locator("#demo-panel")).toBeHidden();
-  expect(await page.locator("#source-panel").evaluate(el => getComputedStyle(el).animationName)).toBe("template-flip-in");
+  expect(await page.locator("#source-panel").evaluate(el => getComputedStyle(el).animationName)).toBe("none");
   await page.getByRole("tab", { name: "Source", exact: true }).press("ArrowLeft");
   await expect(input).toHaveValue("Keep this unsent draft — 中文");
   await expect(page.getByRole("tab", { name: "Demo", exact: true })).toBeFocused();
