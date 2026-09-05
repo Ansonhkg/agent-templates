@@ -310,3 +310,6 @@ main {
 .mock-edges { position:absolute; top:0; left:0; pointer-events:none; overflow:visible; }
 .mock-edges path { stroke:#c6cbbf; stroke-width:2; fill:none; }
 @media(max-width:700px) { .mock-edges { display:none; } }
+
+.hosted-notice { margin-top:24px; }
+.mock-layout > .connection-example { width:100%; padding:20px 0; margin:0; }

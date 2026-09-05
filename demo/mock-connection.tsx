@@ -1,27 +1,40 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { MockFlow, type FlowStep } from "./mock-flow";
+import { ConnectionExampleView } from "./connection-example";
+import { CodexAccount } from "../src/codex-connection/ui/CodexAccount";
+import type { ConnectionState, ConnectionTransport } from "../src/codex-connection/types";
 const steps: FlowStep[] = [
   { label: "Not connected", description: "The app reads the connection status before offering sign-in." },
-  { label: "Approve sign-in", description: "In a live app, Codex opens its sign-in flow. Here, approval is simulated." },
+  { label: "Approve sign-in", description: "Codex opens its sign-in flow. The account updates after approval." },
   { label: "Connected", description: "Account status is available. Your app can now make requests." },
-  { label: "Send a request", description: "A small request is running. This example response is simulated." },
+  { label: "Send a request", description: "A small request is running. The response appears when it completes." },
   { label: "Response received", description: "The request succeeded. This standalone connection can be used by any app." },
   { label: "Signed out", description: "Signing out clears the account state. You can start again." },
   { label: "Connection failed", description: "An alternate failure path: show an error and let the user reconnect.", branch: true, branchFrom: 1 },
 ];
 export function MockConnection() {
   const [step, setStep] = useState(0);
+  const [userCode, setUserCode] = useState<string>();
   useEffect(() => { if (step !== 3) return; const timer = setTimeout(() => setStep(4), 1600); return () => clearTimeout(timer); }, [step]);
   const connected = step >= 2 && step <= 4;
+  const state: ConnectionState = {
+    connected, status: connected ? "connected" : step === 6 ? "error" : "signed-out", imageGeneration: connected,
+    ...(connected ? { plan: "Plus" } : {}),
+    ...(step === 1 ? { login: { id: "example-login", url: "#connection", userCode } } : {}),
+    ...(step === 6 ? { error: "Connection failed. Reconnect to try again." } : {}),
+  };
+  const transport = useMemo<ConnectionTransport>(() => ({
+    read: async () => state,
+    subscribe: () => () => {},
+    login: async (method) => { setUserCode(method === "device" ? "ABCD-EFGH" : undefined); setStep(1); return { ...state, login: { id: "example-login", url: "#connection" } }; },
+    cancelLogin: async () => { setStep(0); return { connected:false, status:"signed-out", imageGeneration:false }; },
+    reconnect: async () => { setStep(1); return state; },
+    logout: async () => { setStep(5); return { connected:false, status:"signed-out", imageGeneration:false }; },
+  }), [step, userCode]);
   return <div className="mock-layout"><MockFlow steps={steps} step={step} go={setStep} />
-    <section className="mock-surface"><h1>Sign in with Codex</h1><p>Connect an account, send a request, and sign out.</p>
-      <div className="connection-demo-content"><h2>Your account</h2>
-        <p role="status">{connected ? "Connected · Demo account" : step === 1 ? "Waiting for approval · Mock sign-in" : step === 6 ? "Connection unavailable" : step === 5 ? "Signed out" : "Not connected"}</p>
-        {step === 1 ? <><p>No login page or credentials needed. Approve this mock sign-in to continue.</p><div className="mock-actions"><button onClick={() => setStep(2)}>Approve mock sign-in</button><button onClick={() => setStep(0)}>Cancel sign-in</button></div></> : connected ? <div className="mock-actions"><button onClick={() => setStep(1)}>Reconnect</button><button onClick={() => setStep(5)}>Sign out</button></div> : <button onClick={() => setStep(1)}>{step === 6 ? "Retry connection" : "Sign in with Codex →"}</button>}
-        {step === 6 && <p role="alert">The simulated connection failed. Reconnect to try again.</p>}
-        <h3>Try the connection</h3><p>Request: “Reply with a short greeting.”</p>
-        <button disabled={!connected || step === 3} onClick={() => setStep(3)}>{step === 3 ? "Sending…" : "Test connection"}</button>
-        <div className="connection-test-result" role="status">{step === 3 ? "Waiting for the mock response…" : step === 4 ? "Hello! Your connection is ready. (Mock response)" : ""}</div>
-      </div>
-    </section></div>;
+    <ConnectionExampleView state={state} error={state.error}
+      account={<CodexAccount key={step} transport={transport} defaultOpen={step === 1} onContinueSignIn={() => setStep(2)} />}
+      testing={step === 3} reply={step === 4 ? "Hello! Your connection is ready." : ""}
+      onTest={() => setStep(3)} onCancelTest={() => setStep(2)} />
+  </div>;
 }

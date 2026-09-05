@@ -216,6 +216,6 @@ See [RELEASE.md](RELEASE.md) for the clean export command and remaining release 
 
 ## Hosted showcase
 
-The gallery is hosted at https://anson.sh/templates/. Build it with `npm run build:showcase`; serve `dist-showcase/` at `/templates/`. The hosted Demo tabs are interactive mocks with a clickable flow DAG and Play E2E walkthrough. Sign-in, streamed replies, tool calls, sample results, revision, acceptance, failure, and cancellation are simulated in browser memory and reset on refresh. They never request a Codex backend. Live authentication and generation remain in the local demo. The Source tabs and public instruction URLs work on either host.
+The gallery is hosted at https://anson.sh/templates/. Build it with `npm run build:showcase`; serve `dist-showcase/` at `/templates/`. The hosted Demo tabs are interactive mocks with a clickable flow DAG and Play E2E walkthrough. Sign-in, streamed replies, tool calls, sample results, revision, acceptance, failure, and cancellation are simulated in browser memory and reset on refresh. They reuse the live account, connection, chat, and result components with in-memory adapters. They never request a Codex backend. Live authentication and generation remain in the local demo. The Source tabs and public instruction URLs work on either host.
 
 Run `npx tsx tests/check-showcase.ts <showcase-url>` to check the deployed gallery, previews, Demo/Source navigation, instruction routes, and mobile layout.

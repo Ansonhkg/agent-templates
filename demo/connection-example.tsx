@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, type ReactNode } from "react";
 import { CodexAccount } from "../src/codex-connection/ui/CodexAccount";
 import type { ConnectionTransport } from "../src/codex-connection/types";
 import { useCodexConnection } from "../src/codex-connection/client/use-codex-connection";
@@ -26,24 +26,32 @@ export function ConnectionExample({ transport, token }: { transport: ConnectionT
       if (active.current === controller) { active.current = null; setTesting(false); }
     }
   }
-  return <main className="source-guide">
+  return <ConnectionExampleView state={state} error={error} account={<CodexAccount transport={transport} />} testing={testing} reply={reply} testError={testError} onTest={() => void test()} onCancelTest={() => { active.current?.abort(); active.current = null; setTesting(false); }} />;
+}
+
+export function ConnectionExampleView({ state, error, account, testing, reply, testError, onTest, onCancelTest }: {
+  state: import("../src/codex-connection/types").ConnectionState;
+  error?: string; account: ReactNode; testing: boolean; reply: string; testError?: string;
+  onTest(): void; onCancelTest(): void;
+}) {
+  return <section className="source-guide connection-example">
     <h1>Sign in with Codex</h1>
     <p>Connect your ChatGPT account through local Codex. This standalone template handles sign-in, connection status, and account management.</p>
     <div className="connection-demo-content">
       <section><h2>Your account</h2>
-        <CodexAccount transport={transport} />
+        {account}
         <p role="status">{state.connected ? "Connected to your ChatGPT account" : `Connection: ${state.status}`}</p>
         <p>Image generation: {state.imageGeneration ? "available" : "unavailable"}</p>
         {error && <p role="alert">{error}</p>}
         <p>Login state comes from the local Codex process. Credentials stay with Codex.</p>
         <h3>Try the connection</h3>
         <p>Send one small text request and see the response. Uses your Codex account.</p>
-        <button disabled={!state.connected || testing} onClick={() => void test()}>{testing ? "Testing…" : "Test connection"}</button>
-        {testing && <button onClick={() => { active.current?.abort(); active.current = null; setTesting(false); }}>Cancel test</button>}
+        <button disabled={!state.connected || testing} onClick={onTest}>{testing ? "Testing…" : "Test connection"}</button>
+        {testing && <button onClick={onCancelTest}>Cancel test</button>}
         <div className="connection-test-result" role="status" aria-label="Connection test result">{testing ? "Waiting for Codex…" : reply}</div>
         {testError && <p role="alert">{testError} You can retry the test.</p>}
       </section>
 
     </div>
-  </main>;
+  </section>;
 }
