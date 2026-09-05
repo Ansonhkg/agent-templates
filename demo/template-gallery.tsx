@@ -1,3 +1,4 @@
+import { installCommand } from "./install-command";
 import { CodeBlock } from "../src/chat-step/ui/JsonView";
 export function TemplateGallery() {
   return <main className="template-gallery">
@@ -16,9 +17,9 @@ export function TemplateGallery() {
         </a>
         <div className="gallery-copy">
           <h2>Sign in with Codex</h2>
-          <p>Browser and device sign-in, account status, reconnect, and sign-out. Use it on its own or with the chat template.</p>
+          <p>Browser and device sign-in, account status, reconnect, and sign-out. Test a real request without a chat interface.</p>
           <div className="gallery-actions"><a className="gallery-link" href="#connection">Open demo →</a><a href="#source">View source & copy</a></div>
-          <CodeBlock language="bash" text="node scripts/copy.mjs /path/to/my-app --module codex-connection" />
+          <CodeBlock language="bash" text={installCommand("codex-connection")} />
         </div>
       </article>
       <article>
@@ -32,10 +33,10 @@ export function TemplateGallery() {
           <h2>Chat + result</h2>
           <p>A focused conversation beside a live result. Discuss ideas, invoke tools, generate, revise, and accept your work.</p>
           <div className="gallery-actions"><a className="gallery-link" href="#character">Open demo →</a><a href="#source">View source & copy</a></div>
-          <CodeBlock language="bash" text="node scripts/copy.mjs /path/to/my-app --module chat-step" />
+          <CodeBlock language="bash" text={installCommand("chat-step")} />
         </div>
       </article>
     </div>
-    <section className="gallery-reuse"><h2>Separate pieces. One working example.</h2><p>Try sign-in first, then open the chat. Both demos share the same local connection. Character and style are two configurations of the chat template.</p><a className="gallery-link" href="#source">See how to copy and connect them →</a></section>
+    <section className="gallery-reuse"><h2>Separate pieces. One working example.</h2><p>Clone with GitHub CLI, then copy the module you need. Private access requires gh auth login. The connection demo works independently; the chat demo shows their integration. Character and style are two configurations of the chat template.</p><a className="gallery-link" href="#source">See how to copy and connect them →</a></section>
   </main>;
 }

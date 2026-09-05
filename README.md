@@ -9,6 +9,8 @@ This is source you own, in the spirit of shadcn. It is not a published component
 **Supported platform: macOS only.** Requires Node.js 22+, npm, and a local Codex installation. Use the header’s **Connect Codex** control to sign in; image examples require image generation support.
 
 ```sh
+gh repo clone Ansonhkg/agent-templates
+cd agent-templates
 npm install
 npm run dev
 ```
@@ -19,7 +21,7 @@ Open **http://127.0.0.1:4328**. The homepage is a template gallery with two work
 - **Chat + result:** http://127.0.0.1:4328/#character — a chat workspace with character and style variants.
 - **Source & reuse:** http://127.0.0.1:4328/#source — file layout, copy commands, and integration recipe.
 
-Both demos share the same local connection. The example stepper shows where this focused workspace belongs; it is not a separate workflow engine.
+The connection demo provides account management and a standalone inference test. The chat demo separately shows how to integrate that connection into a conversation. The example stepper shows where this focused workspace belongs; it is not a separate workflow engine.
 
 Try these in order:
 
@@ -80,9 +82,11 @@ tests/                           infrastructure checks
 
 ## Copy into an existing app
 
-From this template directory:
+Requires Node.js and GitHub CLI. For this private repository, authenticate with `gh auth login` first. Replace `/path/to/my-app` with your app folder.
 
 ```sh
+gh repo clone Ansonhkg/agent-templates
+cd agent-templates
 # Both modules plus their integration recipe
 node scripts/copy.mjs /path/to/my-app
 

@@ -1,3 +1,4 @@
+import { testConnection } from "./connection-probe";
 import { createServer } from "node:http";
 import { mkdir, readFile, writeFile } from "node:fs/promises";
 import { randomBytes, randomUUID } from "node:crypto";
@@ -77,6 +78,9 @@ const server = createServer(async (req, res) => {
       if (path === "/api/account") {
         json(res, await connection.refresh());
         return;
+      }
+      if (path === "/api/codex/test" && req.method === "POST") {
+        await testConnection(connection, res); return;
       }
       if (path === "/api/codex" || path.startsWith("/api/codex/")) {
         await handleCodexConnection(path.slice("/api/codex".length), req, res, connection); return;

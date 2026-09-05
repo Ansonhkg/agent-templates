@@ -27,7 +27,8 @@ try {
   const modal = await new AxeBuilder({ page }).withTags(["wcag2a", "wcag2aa", "wcag21aa"]).analyze();
   reports.push({ route: "account dialog", violations: modal.violations.map(v => ({ id: v.id, impact: v.impact, targets: v.nodes.map(n => n.target) })) });
   await page.getByRole("button", { name: "Close connection", exact: true }).click();
-  await page.getByRole("link", { name: "Continue to the chat demo →", exact: true }).click();
+  await expect(page.locator("main").getByRole("link", { name: /chat demo/ })).toHaveCount(0);
+  await page.getByRole("button", { name: "Chat + result", exact: true }).click();
   await expect(page.locator("h1")).toHaveText("Create your character");
   await page.getByRole("button", { name: "Style example", exact: true }).click();
   await expect(page.locator("h1")).toHaveText("Create your style");

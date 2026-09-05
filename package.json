@@ -11,7 +11,8 @@
     "test:live:features": "tsx tests/live-features.ts",
     "test:e2e": "CHAT_STEP_LIVE=1 playwright test",
     "test:accessibility": "tsx tests/check-accessibility.ts",
-    "test:code": "tsx tests/check-code-blocks.ts"
+    "test:code": "tsx tests/check-code-blocks.ts",
+    "test:demo:connection": "tsx tests/check-connection-demo.ts"
   },
   "dependencies": {
     "lowlight": "^3.3.0",

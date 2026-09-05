@@ -1,3 +1,4 @@
+import { installCommand } from "./install-command";
 import { CodeBlock } from "../src/chat-step/ui/JsonView";
 export function SourceGuide() {
   return (
@@ -55,8 +56,8 @@ scripts/copy.mjs           copies source, never overwrites`} />
         </section>
         <section>
           <h2>Use it in another project</h2>
-          <p>Run this from the template directory:</p>
-          <CodeBlock language="bash" text={`node scripts/copy.mjs /path/to/my-app --example`} />
+          <p>Clone from GitHub, then copy the source into your app. Requires Node.js and GitHub CLI; use gh auth login for access to this private repository. Replace /path/to/my-app with your destination.</p>
+          <CodeBlock language="bash" text={installCommand("example")} />
           <p>
             This adds <code>src/chat-step</code>, <code>src/codex-connection</code>,
             the integration recipe, and the example feature folders. It refuses existing destinations and does not change your

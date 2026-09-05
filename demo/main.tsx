@@ -61,7 +61,7 @@ function Demo() {
         {token && !connectionPage && <CodexAccount transport={connectionTransport} />}
       </header>
       {gallery ? <TemplateGallery /> : connectionPage && token ? (
-        <ConnectionExample transport={connectionTransport} />
+        <ConnectionExample transport={connectionTransport} token={token} />
       ) : guide ? (
         <SourceGuide />
       ) : error ? (

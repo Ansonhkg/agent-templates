@@ -84,3 +84,7 @@ The gallery now exposes separate Sign in with Codex and Chat + result demos, wit
 ## Syntax highlighting and clipboard controls
 
 Code blocks in both demos, the source guide, gallery, Markdown replies, and tool JSON share one renderer. Build and 18 tests pass, including escaped highlighted markup and unknown-language fallbacks. `npm run test:code` checked all 11 demo blocks against the actual clipboard, success/reset/error/retry states, highlight tokens, and 390px overflow. Clipboard rejection was deliberately injected for the error check. All five page accessibility scans plus the account dialog still report zero violations. No inference changes or new image generation were needed for this rendering update.
+
+## Standalone connection and GitHub installation
+
+The connection demo now manages the account and performs a fixed direct inference request without a chat session, transcript, or chat continuation link. Its server handler uses only CodexConnection, with request cancellation, a timeout, and a concurrent-test guard. The browser test received a real Codex response while chat endpoints were blocked and confirmed that none were requested. A deliberately simulated failure verified retry feedback. Build, the 18 unit/contract checks, all 11 clipboard checks, and the accessibility/navigation suite pass. An authenticated fresh GitHub clone successfully copied each module into separate empty apps and confirmed neither included the other module. Private-repository install instructions use gh repo clone; public registry/CLI publishing is not required.

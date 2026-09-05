@@ -248,3 +248,6 @@ main {
 }
 .source-guide .cs-code-block pre { margin: 0; padding: 10px 14px 14px; background: transparent; border-radius: 0; }
 .gallery-copy .cs-code-block code { color: inherit; }
+
+.connection-test-result:not(:empty) { margin-top: 16px; padding: 14px; border-radius: 9px; background: #f0f1eb; white-space: pre-wrap; overflow-wrap: anywhere; }
+.source-guide button:disabled { opacity: .6; cursor: default; }
