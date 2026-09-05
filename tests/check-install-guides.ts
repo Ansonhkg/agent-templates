@@ -10,7 +10,7 @@ const page = await browser.newPage();
 try {
   for (const origin of ["http://127.0.0.1:4328", "http://127.0.0.1:4340"]) {
     await page.goto(`${origin}/#templates`);
-    const commands = page.locator("main .cs-code-block pre code");
+    const commands = page.locator("main:visible .cs-code-block pre code");
     await expect(commands).toHaveCount(2);
     for (const [index, name] of ["codex-connection", "chat-step"].entries()) {
       const url = `${origin}/install/${name}.md`;
@@ -18,14 +18,14 @@ try {
       const { stdout: text } = await run("curl", ["-fsSL", "--max-time", "15", url], { encoding: "utf8" });
       expect(text).toBe(await readFile(`install/${name}.md`, "utf8"));
     }
-    await page.getByRole("button", { name: "Source & reuse", exact: true }).click();
+    await page.goto(`${origin}/#character/source`);
     const url = `${origin}/install/example.md`;
-    await expect(page.locator("main .cs-code-block pre code").filter({ hasText: `curl -fsSL '${url}'` })).toBeVisible();
+    await expect(page.locator("main:visible .cs-code-block pre code").filter({ hasText: `curl -fsSL '${url}'` })).toBeVisible();
     expect((await run("curl", ["-fsSL", "--max-time", "15", url], { encoding: "utf8" })).stdout).toBe(await readFile("install/example.md", "utf8"));
     console.log(`Passed: all three displayed curl commands return exact agent guides from ${origin}.`);
   }
 } finally {
   await browser.close();
-  server.httpServer.closeAllConnections();
+  if ("closeAllConnections" in server.httpServer) server.httpServer.closeAllConnections();
   await new Promise<void>((resolve, reject) => server.httpServer.close(error => error ? reject(error) : resolve()));
 }

@@ -15,7 +15,7 @@ test("real chat rendering, tools, generation, revision, cancellation and persist
     const result = await state(); expect(result.status, result.error).toBe("idle"); await capture("reply-complete"); return result;
   }
   await page.goto("/#character"); await capture("fresh-demo");
-  await expect(page.getByRole("button", { name: "● Codex connected", exact: true })).toBeVisible();
+  await expect(page.locator(".cs-connection")).toHaveText("● Connected");
   await send("For a formatting demonstration, reply with two bullet points using bold labels, a two-column Markdown table, a fenced javascript block containing const ready = true;, and a link to https://example.com. Do not call tools or generate images.");
   await expect(page.locator(".cs-markdown strong").first()).toBeVisible();
   await expect(page.locator(".cs-markdown li").first()).toBeVisible();

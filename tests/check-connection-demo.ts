@@ -7,7 +7,7 @@ page.on("pageerror", error => errors.push(error.message));
 try {
   await page.route("**/api/steps/**", route => { chatRequests.push(route.request().url()); return route.abort(); });
   await page.goto("http://127.0.0.1:4328/#connection");
-  await expect(page.locator("h1")).toHaveText("Sign in with Codex");
+  await expect(page.getByRole("heading", { level: 1 })).toHaveText("Sign in with Codex");
   await expect(page.getByRole("textbox", { name: "Message", exact: true })).toHaveCount(0);
   await expect(page.locator("main").getByRole("link", { name: /chat/ })).toHaveCount(0);
   const button = page.getByRole("button", { name: "Test connection", exact: true });

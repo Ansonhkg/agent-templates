@@ -43,7 +43,7 @@
   filter: brightness(0.9);
 }
 .cs-step textarea:focus {
-  background: #efefea;
+  background: transparent;
 }
 .cs-step-heading {
   display: flex;
@@ -156,15 +156,20 @@
 .cs-composer {
   border-radius: 12px;
   background: var(--cs-field);
-  padding: 12px;
+  padding: 10px;
+  height: 98px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
   margin-top: 12px;
 }
 .cs-composer textarea {
   width: 100%;
-  height: 74px;
-  min-height: 50px;
-  max-height: 180px;
-  resize: vertical;
+  height: auto;
+  min-height: 0;
+  flex: 1;
+  resize: none;
+  filter: none;
   background: transparent;
   padding: 2px 4px;
   font-size: 13px;

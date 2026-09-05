@@ -19,7 +19,7 @@ Open **http://127.0.0.1:4328**. The homepage is a template gallery with two work
 
 - **Sign in with Codex:** http://127.0.0.1:4328/#connection — standalone account UI.
 - **Chat + result:** http://127.0.0.1:4328/#character — a chat workspace with character and style variants.
-- **Source & reuse:** http://127.0.0.1:4328/#source — file layout, copy commands, and integration recipe.
+Each template has **Demo** and **Source** tabs. Source links are http://127.0.0.1:4328/#connection/source and http://127.0.0.1:4328/#character/source. Switching tabs keeps the draft and demo state mounted; the flip animation respects reduced-motion preferences.
 
 The connection demo provides account management and a standalone inference test. The chat demo separately shows how to integrate that connection into a conversation. The example stepper shows where this focused workspace belongs; it is not a separate workflow engine.
 

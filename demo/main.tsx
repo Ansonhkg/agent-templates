@@ -8,33 +8,29 @@ import {
   canCompleteVisual,
   type VisualDraft,
 } from "../src/features/visual/model";
-import { CodexAccount } from "../src/codex-connection/ui/CodexAccount";
 import { codexHttpTransport } from "../src/codex-connection/client/http-transport";
+import { TemplateTabs } from "./template-tabs";
+import { ConnectionSource } from "./connection-source";
 import { ConnectionExample } from "./connection-example";
 import { TemplateGallery } from "./template-gallery";
 import { SourceGuide } from "./source-guide";
 import "../src/chat-step/ui/chat-step.css";
 import "./demo.css";
 function Demo() {
-  const [kind, setKind] = useState<"character" | "style">(location.hash === "#style" ? "style" : "character");
-  const [connectionPage, setConnectionPage] = useState(location.hash === "#connection");
-  const [guide, setGuide] = useState(location.hash === "#source");
-  const [gallery, setGallery] = useState(!["#character", "#style", "#connection", "#source"].includes(location.hash));
+  const [route, setRoute] = useState(location.hash);
+  const kind = route.startsWith("#style") ? "style" : "character";
+  const connectionPage = route.startsWith("#connection");
+  const guide = route.endsWith("/source") || route === "#source";
+  const gallery = !["#character", "#style", "#connection", "#source"].some(path => route === path || route.startsWith(path + "/"));
   const [token, setToken] = useState("");
   const [error, setError] = useState("");
-
   const [finished, setFinished] = useState<Session<VisualDraft>>();
   useEffect(() => {
-    const sync = () => {
-      setGallery(!["#character", "#style", "#connection", "#source"].includes(location.hash));
-      setGuide(location.hash === "#source");
-      setConnectionPage(location.hash === "#connection");
-      if (!["#source", "#connection"].includes(location.hash)) setKind(location.hash === "#style" ? "style" : "character");
-      setFinished(undefined);
-    };
+    const sync = () => setRoute(location.hash);
     window.addEventListener("hashchange", sync);
     return () => window.removeEventListener("hashchange", sync);
   }, []);
+  useEffect(() => setFinished(undefined), [kind]);
   useEffect(() => {
     void fetch("/api/bootstrap")
       .then((r) => r.json())
@@ -52,22 +48,14 @@ function Demo() {
         <a className="demo-brand" href="#templates">
           <span aria-hidden="true">◒</span> Agent templates
         </a>
-        <nav aria-label="Demo navigation">
-          <button aria-pressed={gallery} onClick={() => { location.hash = "templates"; }}>Templates</button>
-          <button aria-pressed={connectionPage} onClick={() => { location.hash = "connection"; }}>Sign in with Codex</button>
-          <button aria-pressed={!gallery && !guide && !connectionPage} onClick={() => { location.hash = "character"; }}>Chat + result</button>
-          <button aria-pressed={guide} onClick={() => { location.hash = "source"; }}>Source & reuse</button>
-        </nav>
-        {token && !connectionPage && <CodexAccount transport={connectionTransport} />}
       </header>
-      {gallery ? <TemplateGallery /> : connectionPage && token ? (
-        <ConnectionExample transport={connectionTransport} token={token} />
-      ) : guide ? (
-        <SourceGuide />
-      ) : error ? (
-        <p role="alert">{error}</p>
-      ) : (
-        token && (
+      {gallery ? <TemplateGallery /> : <TemplateTabs
+        base={connectionPage ? "connection" : kind}
+        source={guide}
+        sourcePanel={connectionPage ? <ConnectionSource /> : <SourceGuide />}
+      >
+        {error ? <p role="alert">{error}</p> : !token ? <p role="status">Loading demo…</p> : connectionPage ?
+          <ConnectionExample transport={connectionTransport} token={token} /> : (
           <main>
             <div className="demo-variants" aria-label="Chat examples">
               <button aria-pressed={kind === "character"} onClick={() => { location.hash = "character"; }}>Character example</button>
@@ -148,8 +136,8 @@ function Demo() {
               generated only when requested.
             </p>
           </main>
-        )
-      )}
+        )}
+      </TemplateTabs>}
     </div>
   );
 }
