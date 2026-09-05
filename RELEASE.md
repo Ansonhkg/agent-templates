@@ -35,3 +35,15 @@ The local host is not ready to serve multiple unrelated users over the public in
 The committed live journey exercises formatted streaming replies, JSON, copy controls, tool details, real character generation and revision, style generation, selection, acceptance, reload, cancellation/recovery, a real failed tool operation, and narrow-screen layout. It starts with a fresh demo data directory and does not replace inference with canned responses.
 
 Additional unit/contract checks cover HTML/link safety, explicit tool display projections, schema and payload validation, duplicate-call handling, persistence, and lifecycle fault injection. These tests complement live inference; they are not substitutes for it.
+
+## Source audit — September 5, 2026
+
+Reviewed the tracked source tree and all eight existing commits (137 file blobs). No credentials, personal filesystem paths, private addresses, or infrastructure configuration were found. The tracked files are limited to the connection/chat modules, example features, demo, integration guides, tests, package metadata, and CI. No generated images, screenshots, conversation data, auth caches, dependencies, or build output are tracked.
+
+Removed an unrelated internal-project reference from the current validation notes. **Older commits still contain that reference**; this cleanup does not sanitize history. Before publishing the existing history, remove that reference from history or publish a fresh source-only export using the script above. History was not rewritten during this audit.
+
+Intentional repository metadata includes the GitHub owner/repository used in clone instructions and the maintainer's GitHub noreply commit identity. Loopback addresses and demo ports document local operation; official documentation links and package-registry URLs are public dependencies. These are retained for reproducible installation and testing.
+
+Validation after cleanup: `npm run build` and all 18 unit/contract tests passed. Live generation was not rerun for this documentation-only cleanup.
+
+Audit status: **current source is safe with the documented repository-identity and loopback exceptions; existing history is not cleared for public release until the unrelated project reference is removed.** This is a source-content audit, not a security certification of the runtime or permission to publish.

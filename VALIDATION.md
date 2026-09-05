@@ -39,7 +39,7 @@ This run generated **one successfully imported character image**. It did not val
 
 `npm ci --ignore-scripts`, `npm run build`, and `npm test` passed within the template using its own dependency installation. The initial infrastructure tests covered safe source copying and refusal to overwrite edits, serialized real filesystem persistence, and schema/tool allowlist checks.
 
-The template is a separate example, not a completed migration of Tune It Own It's character/style dialogs or Ailised's chat widget. Its stepper is illustrative; completion is a real callback demonstration rather than a full multi-step product workflow. Hosted auth, multi-user sessions, uploads, and alternate inference providers require host adapters as documented in the README.
+The template is a separate example, not a completed migration of an integrating application's dialogs or chat widget. Its stepper is illustrative; completion is a real callback demonstration rather than a full multi-step product workflow. Hosted auth, multi-user sessions, uploads, and alternate inference providers require host adapters as documented in the README.
 
 ## Independent connection module and integrated streaming
 
