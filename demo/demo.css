@@ -264,3 +264,16 @@ main {
 .hosted-notice button { flex-shrink:0; background:#fff; }
 .hosted-setup { background:#fff; border-radius:12px; padding:20px; margin-bottom:24px; }
 @media(max-width:600px) { .hosted-notice { align-items:flex-start; flex-direction:column; } }
+
+.gallery-screenshot { max-width: 100%; max-height: 100%; object-fit: contain; border-radius: 10px; box-shadow: 0 12px 30px #252c1810; }
+.template-visuals { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 28px; margin: 28px 0 36px; align-items: start; }
+.template-visuals figure { margin: 0; min-width: 0; }
+.template-visuals figure a { display: block; background: #edeee7; border-radius: 14px; padding: 20px; }
+.template-visuals img { display: block; width: 100%; height: auto; border-radius: 8px; }
+.template-visuals figcaption { margin-top: 12px; font-size: 12px; color: #62695c; }
+.template-snippets { min-width: 0; }
+.template-snippets p { color: #62695c; }
+.snippet-choices { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 12px; }
+.snippet-choices button[aria-pressed=true] { background: #292b27; color: white; }
+.template-snippets .cs-code-block pre { max-height: 360px; overflow: auto; }
+@media(max-width:800px) { .template-visuals { grid-template-columns: 1fr; } }

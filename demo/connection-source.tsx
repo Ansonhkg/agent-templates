@@ -1,8 +1,10 @@
+import { TemplateVisuals } from "./template-visuals";
 import { installCommand } from "./install-command";
 import { CodeBlock } from "../src/chat-step/ui/JsonView";
 export function ConnectionSource() {
   return <main className="source-guide connection-source">
     <h1>Sign in with Codex — source</h1>
+    <TemplateVisuals kind="connection" />
     <div className="source-columns">
       <section><h2>Add it with your agent</h2>
         <p>Give this command to your coding agent. It reads this template’s setup instructions from this site; the agent then installs, connects, and tests the module. Source access still requires permission to the private GitHub repository.</p>

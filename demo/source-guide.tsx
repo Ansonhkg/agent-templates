@@ -1,3 +1,4 @@
+import { TemplateVisuals } from "./template-visuals";
 import { installCommand } from "./install-command";
 import { CodeBlock } from "../src/chat-step/ui/JsonView";
 export function SourceGuide() {
@@ -8,6 +9,7 @@ export function SourceGuide() {
         The workspace is source code inside your app. There is no chat-step
         package to subscribe to or keep in sync.
       </p>
+      <TemplateVisuals kind="chat" />
       <div className="source-columns">
         <section>
           <h2>What the repo looks like</h2>
