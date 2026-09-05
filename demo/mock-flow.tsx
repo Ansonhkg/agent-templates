@@ -14,8 +14,8 @@ export function MockFlow({ steps, step, go }: { steps: FlowStep[]; step: number;
     <h2>See the full flow</h2>
     <p>Play the walkthrough or jump to a step. Try the controls alongside it.</p>
     <div className="mock-actions">
-      <button onClick={() => { if (playing) setPlaying(false); else { go(0); setPlaying(true); } }}>{playing ? "Pause walkthrough" : "Play E2E"}</button>
-      <button onClick={() => { setPlaying(false); go(0); }}>Reset demo</button>
+      <button className="mock-icon-button" aria-label={playing ? "Pause walkthrough" : "Play E2E"} title={playing ? "Pause walkthrough" : "Play E2E"} onClick={() => { if (playing) setPlaying(false); else { go(0); setPlaying(true); } }}><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">{playing ? <><path d="M8 5v14"/><path d="M16 5v14"/></> : <path d="m8 5 11 7-11 7Z"/>}</svg></button>
+      <button className="mock-icon-button" aria-label="Reset demo" title="Reset demo" onClick={() => { setPlaying(false); go(0); }}><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M3 10a9 9 0 1 1 2.5 8"/><path d="M3 4v6h6"/></svg></button>
     </div>
     <div className="mock-dag">
       <svg className="mock-edges" width="48" height={steps.length * 62} aria-hidden="true">

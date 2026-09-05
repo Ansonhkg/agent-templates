@@ -313,3 +313,5 @@ main {
 
 .hosted-notice { margin-top:24px; }
 .mock-layout > .connection-example { width:100%; padding:20px 0; margin:0; }
+
+.mock-actions .mock-icon-button { width:36px; height:36px; padding:0; display:inline-flex; align-items:center; justify-content:center; }
